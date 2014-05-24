@@ -2,4 +2,4 @@
 
 <%-- Redireciona para servet inicio  --%>
 
-<jsp:forward page="servletWebInit"/>
+<jsp:forward page="ServletWebInit"/>
