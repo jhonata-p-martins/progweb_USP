@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +17,9 @@ import model.User;
 
 /**
  *
- * @author peixe
+ * @author jhonata
  */
-@WebServlet(name = "ServletWebInit", urlPatterns = {"/ServletWebInit"})
-public class ServletWebInit extends HttpServlet {
+public class ServletWeb extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,17 +32,39 @@ public class ServletWebInit extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        String url = "";
+        String acao;
+        
+        
         HttpSession session = request.getSession();
-        String url = "pagina1.jsp";
-        ArrayList<User> users = new ArrayList();        
-        users.add(new User("admin", "sanca", "SP", "(16)9929-2999", "admin@usp.br", "admin123", true));
-        users.add(new User("peixinhu", "sanca", "SP", "(16)9924-2424", "peixe@gluglu.com", "242424", false));
+        ArrayList<User> listaUsers = (ArrayList<User>)session.getAttribute("usersList");
+        acao = (String) request.getParameter("acao");
         
-        session.setAttribute("usersList", users);
-        session.setAttribute("flag", true);
-        
-        
+        //acao para verificar login do usuario
+        if(acao.equals("login"))
+        {
+            String login = (String) request.getParameter("login");
+            String senha = (String) request.getParameter("senha");
+            boolean flag = false;
+            for(User u : listaUsers)
+            {
+                if(u.getLogin().equals(login) && u.getSenha().equals(senha))
+                {
+                    url = "pagina2.jsp";
+                    session.setAttribute("userAtual", u);
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag)
+            {
+                session.setAttribute("flag", flag);
+                url = "pagina1.jsp";
+            }
+            
+        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

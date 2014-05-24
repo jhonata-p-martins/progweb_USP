@@ -4,9 +4,17 @@
         <servlet-name>ServletWebInit</servlet-name>
         <servlet-class>logic.ServletWebInit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletWeb</servlet-name>
+        <servlet-class>logic.ServletWeb</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletWebInit</servlet-name>
         <url-pattern>/ServletWebInit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletWeb</servlet-name>
+        <url-pattern>/ServletWeb</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
