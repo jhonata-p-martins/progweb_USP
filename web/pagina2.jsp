@@ -85,7 +85,7 @@
 					<td>Estado:</td>
                                         <td>
                                             <select>
-                                                <option value="AC" checked>AC</option>
+                                                <option value="AD" checked>AC</option>
                                                 <option value="AL">AL</option>
                                                 <option value="AP">AP</option>
                                                 <option value="AM">AM</option>
