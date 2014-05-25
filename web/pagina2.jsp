@@ -4,7 +4,9 @@
     Author     : Yago
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -76,10 +78,12 @@
 		<form onsubmit="return valida(this);" action= "principal.html">
 			<table align="center">
 				<tr>
-					<td>Nome:</td><td><input type="text" name="nome"></br></td>
+					<td>Nome:</td><td><input type="text" name="nome" value="${userAtual.getNome()}"   ></br></td>
+                                      
+                                        
 				</tr>
 				<tr>
-					<td>Cidade:</td><td><input type="text" name="cidade"></br></td>
+					<td>Cidade:</td><td><input type="text" name="cidade"   value="${userAtual.getCidade()}" ></br></td>
 				</tr>
 				<tr>
 					<td>Estado:</td>
@@ -116,16 +120,26 @@
                                         </td>
 				</tr>
                                 <tr>
-					<td>Telefone:</td><td><input type="text" name="telefone" id="telefone" maxlength="14" /></td>
+			        <td>Telefone:</td><td><input type="text" name="telefone" id="telefone" maxlength="14" value="${userAtual.getTelefone()}" /></td>
 				</tr>
                                 <tr>
-					<td>Login:</td><td><input type="text" name="email"></br></td>
+				                                    
+                                       <c:if test="${op == 0}">  
+                                          <td>Login:</td><td><input type="text" name="email"></br></td>
+                                       </c:if> 
+                                       <c:if test="${op == 1}">  
+                                       <td>Login:</td><td><input type="text" name="email"  value="${userAtual.getLogin()}" disabled="true" ></br></td>
+                                       </c:if> 
+                                    
+				</tr>
+                                
+                                
+                                
+                                <tr>
+					<td>Senha:</td><td><input type="password" name="senha" value="${userAtual.getSenha()}"  ></br></td>
 				</tr>
                                 <tr>
-					<td>Senha:</td><td><input type="password" name="senha"></br></td>
-				</tr>
-                                <tr>
-					<td>Confirmar senha:</td><td><input type="password" name="confirma"></br></td>
+					<td>Confirmar senha:</td><td><input type="password" name="confirma" value="${userAtual.getSenha()}" ></br></td>
 				</tr>
 				<tr>
 					<td><td><input type="submit" value="Enviar"><br> 

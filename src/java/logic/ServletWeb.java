@@ -51,7 +51,7 @@ public class ServletWeb extends HttpServlet {
             {
                 if(u.getLogin().equals(login) && u.getSenha().equals(senha))
                 {
-                    url = "pagina2.jsp";
+                    url = "pagina3.jsp";
                     session.setAttribute("userAtual", u);
                     flag = true;
                     break;
@@ -63,8 +63,46 @@ public class ServletWeb extends HttpServlet {
                 url = "pagina1.jsp";
             }
             
+        }        
+        else 
+        if(acao.equals("cadastrar")) 
+        {   // desnecessario mas nao sei como tratar em acessos concorrentes
+            //session.setAttribute("op", 0); 
+            User newUser = new User(); 
+            session.setAttribute("userAtual", newUser); 
+            session.setAttribute("op", 0); 
+            url="pagina2.jsp";
         }
-
+        else 
+        if(acao.equals("efetuar_compras")) 
+        {  
+            
+            url="pagina4.jsp";
+        } else 
+        if(acao.equals("atualizar_dados")) 
+        {   // desnecessario mas nao sei como tratar em acessos concorrentes
+            session.setAttribute("op", 1);            
+            url="pagina2.jsp";
+        }else 
+        if(acao.equals("cadastro_produto")) 
+        {   // desnecessario mas nao sei como tratar em acessos concorrentes
+                        
+            url="pagina6.jsp";
+        }else 
+        if(acao.equals("estoque")) 
+        {   // desnecessario mas nao sei como tratar em acessos concorrentes
+            session.setAttribute("op", 1);            
+            url="pagina7.jsp";
+        }    
+        else 
+        if(acao.equals("logout")) 
+        {   // desnecessario mas nao sei como tratar em acessos concorrentes
+           // session.invalidate();
+            url="pagina1.jsp";
+        } 
+        
+        
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

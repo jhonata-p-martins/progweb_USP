@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jhonata/USP/7%20SEMESTRE/WEB/progweb_USP/web/pagina2.jsp</file>
-            <file>file:/home/jhonata/USP/7%20SEMESTRE/WEB/progweb_USP/web/index.jsp</file>
-            <file>file:/home/jhonata/USP/7%20SEMESTRE/WEB/progweb_USP/src/java/logic/ServletWebInit.java</file>
-            <file>file:/home/jhonata/USP/7%20SEMESTRE/WEB/progweb_USP/web/WEB-INF/web.xml</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina4.jsp</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina2.jsp</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/model/User.java</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina3.jsp</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina1.jsp</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/logic/ServletWeb.java</file>
         </group>
     </open-files>
 </project-private>

@@ -59,7 +59,7 @@
                            Email e senha não batem!
                        </c:if>--%>
                         <br><br><br>
-                        <a href="pagina2.jsp">Cadastro</a></center>
+                        <a href="ServletWeb?acao=cadastrar">Cadastro</a></center>
 
                     <input type="hidden" name="acao" value="login"/>
 		</form>

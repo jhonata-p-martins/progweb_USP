@@ -20,7 +20,7 @@ import model.User;
  *
  * @author peixe
  */
-@WebServlet(name = "ServletWebInit", urlPatterns = {"/ServletWebInit"})
+//@WebServlet(name = "ServletWebInit", urlPatterns = {"/ServletWebInit"})
 public class ServletWebInit extends HttpServlet {
 
     /**
