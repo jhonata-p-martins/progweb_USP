@@ -51,6 +51,7 @@ public class ServletWeb extends HttpServlet {
             {
                 if(u.getLogin().equals(login) && u.getSenha().equals(senha))
                 {
+                 
                     url = "pagina3.jsp";
                     session.setAttribute("userAtual", u);
                     flag = true;
@@ -107,6 +108,9 @@ public class ServletWeb extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+        
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

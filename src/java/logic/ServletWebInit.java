@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Product;
 import model.User;
 
 /**
@@ -37,12 +38,30 @@ public class ServletWebInit extends HttpServlet {
 
         HttpSession session = request.getSession();
         String url = "pagina1.jsp";
+        
+        // criando usuários 
         ArrayList<User> users = new ArrayList();        
         users.add(new User("admin", "sanca", "SP", "(16)9929-2999", "admin@usp.br", "admin123", true));
         users.add(new User("peixinhu", "sanca", "SP", "(16)9924-2424", "peixe@gluglu.com", "242424", false));
         
         session.setAttribute("usersList", users);
         session.setAttribute("flag", true);
+        
+        /*Product( String nome, 
+             String categoria,
+             float  valor,
+             int    qtd,
+             Object foto,
+             String status 
+             )*/
+    
+        // cria lista de produtos
+        ArrayList<Product> listProd = new ArrayList();        
+        listProd.add(new Product("Shampoo", "Higiene", 12, 10, null, "disponivel"));
+        listProd.add(new Product("Sabonete", "Higiene", 2.99f, 2, null, "disponivel"));
+        listProd.add(new Product("Absorvente", "Higiene", 4.99f, 0, null, "disponivel"));
+        listProd.add(new Product("Arroz", "Alimento", 9.99f, 5, null, "finalizado"));
+        session.setAttribute("productList", listProd);
         
         
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
