@@ -5,12 +5,13 @@
  */
 
 package model;
+import java.io.Serializable;
 import java.util.Random;
 /**
  *
  * @author peixe
  */
-public class Product {
+public class Product implements Serializable {
     private int id;
     private String nome; 
     private String categoria;

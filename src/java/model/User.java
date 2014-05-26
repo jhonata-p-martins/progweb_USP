@@ -8,6 +8,7 @@ package model;
 
 
 import java.io.Serializable;
+
 import java.util.Random;
 
 public class User implements Serializable
@@ -20,7 +21,7 @@ public class User implements Serializable
     private String login;
     private String senha;
     private boolean isAdmin;
-
+   
     
     
     public User()
@@ -34,6 +35,7 @@ public class User implements Serializable
         this.login = "";
         this.senha = "";
         this.isAdmin = false;
+   
     }
     
     public User(String nome, String cidade, String estado, String telefone, 
@@ -48,6 +50,7 @@ public class User implements Serializable
         this.login = login;
         this.senha = senha;
         this.isAdmin = false;
+   
     }
     
     public int getId() 
@@ -131,4 +134,3 @@ public class User implements Serializable
     }
             
 }
-

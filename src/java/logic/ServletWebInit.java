@@ -47,6 +47,10 @@ public class ServletWebInit extends HttpServlet {
         session.setAttribute("usersList", users);
         session.setAttribute("flag", true);
         
+     
+        
+        
+        
         /*Product( String nome, 
              String categoria,
              float  valor,

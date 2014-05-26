@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.CarrinhoCompras;
+import model.Product;
 import model.User;
 
 /**
@@ -51,9 +53,18 @@ public class ServletWeb extends HttpServlet {
             {
                 if(u.getLogin().equals(login) && u.getSenha().equals(senha))
                 {
-                 
+                    // cada vez q um user entrar um carinho de compra eh associado a ele
                     url = "pagina3.jsp";
+                    CarrinhoCompras car = new CarrinhoCompras(u);
+                 
+                     
+                    car.getItens().add( new Product("chocolate", "gostosuras",5.99f,1,null,"comprado") );
+                    car.getItens().add( new Product() );
+                    
                     session.setAttribute("userAtual", u);
+                    session.setAttribute("carrinho", car.getItens());
+                    
+                    
                     flag = true;
                     break;
                 }
@@ -75,9 +86,9 @@ public class ServletWeb extends HttpServlet {
             url="pagina2.jsp";
         }
         else 
-        if(acao.equals("efetuar_compras")) 
-        {  
-            
+        if(acao.equals("carrinho_compras")) 
+        {            
+           
             url="pagina4.jsp";
         } else 
         if(acao.equals("atualizar_dados")) 
@@ -99,6 +110,16 @@ public class ServletWeb extends HttpServlet {
         if(acao.equals("logout")) 
         {   // desnecessario mas nao sei como tratar em acessos concorrentes
            // session.invalidate();
+            url="pagina1.jsp";
+        }else 
+        if(acao.equals("finalizar_compra")) 
+        {  // float total=0;
+           // User atual;
+          //  atual = (User)session.getAttribute("userAtual");
+           // for(Product aux : atual.getCarrinhoCompras() )
+            // total+= aux.getValor();
+            
+            
             url="pagina1.jsp";
         } 
         

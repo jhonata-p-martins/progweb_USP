@@ -7,8 +7,12 @@
             <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina2.jsp</file>
             <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/model/User.java</file>
             <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina3.jsp</file>
-            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina1.jsp</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/model/CarrinhoCompras.java</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/model/Product.java</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/logic/ServletWebInit.java</file>
             <file>file:/home/peixe/NetBeansProjects/progweb_USP/src/java/logic/ServletWeb.java</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina7.jsp</file>
+            <file>file:/home/peixe/NetBeansProjects/progweb_USP/web/pagina6.jsp</file>
         </group>
     </open-files>
 </project-private>
