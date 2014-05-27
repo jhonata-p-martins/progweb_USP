@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logic;
 
 import java.io.IOException;
@@ -17,21 +12,13 @@ import model.CarrinhoCompras;
 import model.Product;
 import model.User;
 
-/**
- *
- * @author jhonata
- */
+
+
+
 public class ServletWeb extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -41,87 +28,214 @@ public class ServletWeb extends HttpServlet {
         
         HttpSession session = request.getSession();
         ArrayList<User> listaUsers = (ArrayList<User>)session.getAttribute("usersList");
+        
+        
+        // se nao existir nenhum carrinho associa o mesmo ao usuário atual 
+         ArrayList<Product> carrinho = (ArrayList)session.getAttribute("carrinho");
+                   if( carrinho == null)
+                   { carrinho= new ArrayList();
+                     session.setAttribute("carrinho", carrinho);
+                   }  
+        
+        
+        // cria lista de produtos
+        ArrayList<Product> listProd =  (ArrayList)session.getAttribute("productList");
+                   
+        
+        
+        
+        
+        
+        
+                   
         acao = (String) request.getParameter("acao");
         
         //acao para verificar login do usuario
-        if(acao.equals("login"))
-        {
+         if (acao.equals("login")) {
             String login = (String) request.getParameter("login");
             String senha = (String) request.getParameter("senha");
             boolean flag = false;
-            for(User u : listaUsers)
-            {
-                if(u.getLogin().equals(login) && u.getSenha().equals(senha))
+            for (User u : listaUsers) {
+                if (u.getLogin().equals(login) && u.getSenha().equals(senha)) 
                 {
                     // cada vez q um user entrar um carinho de compra eh associado a ele
                     url = "pagina3.jsp";
-                    CarrinhoCompras car = new CarrinhoCompras(u);
-                 
-                     
-                    car.getItens().add( new Product("chocolate", "gostosuras",5.99f,1,null,"comprado") );
-                    car.getItens().add( new Product() );
                     
                     session.setAttribute("userAtual", u);
-                    session.setAttribute("carrinho", car.getItens());
                     
                     
                     flag = true;
                     break;
                 }
             }
-            if(!flag)
-            {
+            if (!flag) {
                 session.setAttribute("flag", flag);
                 url = "pagina1.jsp";
             }
-            
-        }        
-        else 
-        if(acao.equals("cadastrar")) 
-        {   // desnecessario mas nao sei como tratar em acessos concorrentes
+            session.setAttribute("usersList", listaUsers);
+        
+        
+        } else 
+        if (acao.equals("cadastro")) {   // desnecessario mas nao sei como tratar em acessos concorrentes
             //session.setAttribute("op", 0); 
-            User newUser = new User(); 
-            session.setAttribute("userAtual", newUser); 
-            session.setAttribute("op", 0); 
-            url="pagina2.jsp";
+            User newUser = new User();
+            session.setAttribute("userAtual", newUser);
+            session.setAttribute("flag", false);
+            session.setAttribute("op", 0);
+            url = "pagina2.jsp";
+        
+        
         }
+        else
+        if (acao.equals("cadastrar")) {
+            String login = (String) request.getParameter("login");
+            boolean flag = false;
+            for (User u : listaUsers) {
+                if (u.getLogin().equals(login)) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            String nome = (String) request.getParameter("nome");
+            String cidade = (String) request.getParameter("cidade");
+            String estado = (String) request.getParameter("estado");
+            String telefone = (String) request.getParameter("telefone");
+            String senha = (String) request.getParameter("senha");
+            User u = new User(nome, cidade, estado, telefone, login, senha, false);
+
+            if (!flag) {
+                listaUsers.add(u);
+                session.setAttribute("usersList", listaUsers);
+//                session.setAttribute("userAtual", u);
+                url = "pagina1.jsp";
+            } else {
+                session.setAttribute("flag", true);
+                session.setAttribute("userAtual", u);
+                url = "pagina2.jsp";
+            }
+        
+        
+        
+        }
+        // pagina 3 
         else 
         if(acao.equals("carrinho_compras")) 
-        {            
-           
+        {   
+            session.setAttribute("total_carrinho", CalcTotalCarrinho(carrinho));
             url="pagina4.jsp";
-        } else 
+        
+        
+        }
+        else 
         if(acao.equals("atualizar_dados")) 
         {   // desnecessario mas nao sei como tratar em acessos concorrentes
             session.setAttribute("op", 1);            
             url="pagina2.jsp";
-        }else 
+        
+        
+        }
+         else 
+         if (acao.equals("atualizar")) {
+            String login = (String) request.getParameter("login");
+            String nome = (String) request.getParameter("nome");
+            String cidade = (String) request.getParameter("cidade");
+            String estado = (String) request.getParameter("estado");
+            String telefone = (String) request.getParameter("telefone");
+            String senha = (String) request.getParameter("senha");
+            for (int i = 0; i < listaUsers.size(); i++) {
+                if (listaUsers.get(i).getLogin().equals(login)) {
+                    User u = new User(nome, cidade, estado, telefone, login, senha, listaUsers.get(i).getIsAdmin());
+                    session.setAttribute("userAtual", u);
+                    listaUsers.set(i, u);
+                    break;
+                }
+            }
+            session.setAttribute("usersList", listaUsers);
+            url = "pagina3.jsp";
+        
+         
+         }
+        else
+        if(acao.equals("detalhes_produto"))
+        {  int index = Integer.parseInt(request.getParameter("id_prod"));
+             
+           session.setAttribute("currentProd",   listProd.get(index) );
+           session.setAttribute("index",   index );
+           url="pagina5.jsp";
+        
+        
+        }    
+         // pagina 3 opcional para administrador
+        else 
         if(acao.equals("cadastro_produto")) 
-        {   // desnecessario mas nao sei como tratar em acessos concorrentes
-                        
+        {                       
             url="pagina6.jsp";
         }else 
         if(acao.equals("estoque")) 
-        {   // desnecessario mas nao sei como tratar em acessos concorrentes
-            session.setAttribute("op", 1);            
+        {  session.setAttribute("op", 1);            
             url="pagina7.jsp";
         }    
         else 
         if(acao.equals("logout")) 
-        {   // desnecessario mas nao sei como tratar em acessos concorrentes
-           // session.invalidate();
+        {  session.setAttribute("flag", true);
             url="pagina1.jsp";
-        }else 
+        }
+        // pagina 4  CARRINHO DE COMPRAS 
+        else 
         if(acao.equals("finalizar_compra")) 
-        {  // float total=0;
-           // User atual;
-          //  atual = (User)session.getAttribute("userAtual");
-           // for(Product aux : atual.getCarrinhoCompras() )
-            // total+= aux.getValor();
-            
+        {   
             
             url="pagina1.jsp";
+        }else if (acao.equals("voltar")) {
+            String page = request.getParameter("page");
+            url = "pagina" + page + ".jsp";
+        }else 
+        if(acao.equals("remover_item_carrinho")) 
+        {
+            int index = Integer.parseInt(request.getParameter("index"));
+            
+            
+            boolean flag=false;
+            for(int i=0; i< listProd.size(); i++)
+            {   
+                if (listProd.get(i).getNome().equals(carrinho.get(index).getNome()  )  )
+                { listProd.get(i).setQuantidade(  ( listProd.get(i).getQuantidade() + carrinho.get(index).getQuantidade())      );
+                  flag = true;
+                }
+            }    
+            if( !flag)
+            listProd.add(  carrinho.get(index) ) ;
+            
+            
+            
+            
+            carrinho.remove(index);
+            session.setAttribute("total_carrinho", CalcTotalCarrinho(carrinho));           
+            url="pagina4.jsp";
         } 
+        else 
+        if(acao.equals("add_prod_carrinho")) 
+        {
+            boolean flag=false;
+            int id_prod = Integer.parseInt(request.getParameter("id_prod_add"));
+            int qtd = Integer.parseInt(request.getParameter("qtd"));
+            Product aux =  listProd.get(id_prod).vendaProduto(qtd); 
+            Product aux1;
+            // verificamos se produto jah existe no carrinho para apenas somar Qtd
+            for(int i=0; i< carrinho.size(); i++)
+            {   aux1= carrinho.get(i);
+                if (aux1.getNome().equals(aux.getNome()) )
+                { carrinho.get(i).setQuantidade(  (carrinho.get(i).getQuantidade()+qtd)      );
+                  flag = true;
+                }
+            }    
+            if( !flag)
+            carrinho.add(  aux   ) ;
+                    
+            url="pagina3.jsp";
+        } 
+        
         
         
         
@@ -130,6 +244,13 @@ public class ServletWeb extends HttpServlet {
     }
 
     
+       private float CalcTotalCarrinho( ArrayList<Product> c)
+        {   float total=0;
+            for(Product aux : c)
+               total+= aux.getValor()* aux.getQuantidade(); 
+            return total;
+        
+        }
         
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

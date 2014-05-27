@@ -37,8 +37,6 @@
 
 	<body>
 		<center><h1>Bem Vindo ao Compra Simples</h1></center>                
-                <%--<jsp:useBean id="users" scope="session" type="java.util.ArrayList"/>
-                <jsp:useBean id="flag" scope="session" type="java.lang.Boolean"/> --%>
                 <form onsubmit="return valida(this);" action= "ServletWeb" method="POST">                    
 			<table align="center">
 				<tr>
@@ -55,11 +53,11 @@
                         </table>	
                         <br>                              
                        <center>
-                       <%--<c:if test="${flag == false}">
+                       <c:if test="${flag == false}">
                            Email e senha não batem!
-                       </c:if>--%>
+                       </c:if>
                         <br><br><br>
-                        <a href="ServletWeb?acao=cadastrar">Cadastro</a></center>
+                        <a href="ServletWeb?acao=cadastro">Cadastro</a></center>
 
                     <input type="hidden" name="acao" value="login"/>
 		</form>

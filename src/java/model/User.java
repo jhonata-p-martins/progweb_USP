@@ -49,7 +49,7 @@ public class User implements Serializable
         this.telefone = telefone;
         this.login = login;
         this.senha = senha;
-        this.isAdmin = false;
+        this.isAdmin = is;
    
     }
     
@@ -123,7 +123,7 @@ public class User implements Serializable
         this.senha = senha;
     }
 
-    public boolean isIsAdmin() 
+    public boolean getIsAdmin() 
     {
         return isAdmin;
     }

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,34 +17,32 @@
     <center>
     
         <h1> ${userAtual.getNome()} Seu Carinho de Compras </h1>
-        <jsp:useBean id="carrinho" type="java.util.ArrayList" scope="session" />  
+        
         
          
         <table border="1">
-            <tr><td>  ID  </td><td>  Categoria  </td><td>nome da bagaça </td><td>Valor da Bagaça </td><td> detalhes dessa bagaça</td></tr>
-               <c:forEach items="${carrinho}" var="b" varStatus="i">
-             
-                 <c:if test="${b.getQuantidade() > 0}"> 
-                    
-                 <tr>  <td>${b.getId()}</td>
-                       <td>${b.getCategoria()}</td>
-                       <td>${b.getNome()}</td> 
-                       <td>${b.getValor()}</td>
-                       <td> <a href="ServletWeb?acao=detalhes_produto&id_prod=${b.getId()}">Detalhes </td>
-             
-                  </tr>        
+            <tr>   <td> Nome </td>  <td>  Quantidade  </td>   <td>valor </td>   <td>  </td>      </tr>
+            <jsp:useBean id="carrinho" type="java.util.ArrayList" scope="session" />     
+            <c:forEach items="${carrinho}" var="c" varStatus="i">
+                 <tr>  <td>${c.getNome()}</td>
+                       <td>${c.getQuantidade()}</td>
+                       <td>${c.getValor()}</td> 
+                       <td> <a href="ServletWeb?acao=remover_item_carrinho&index=${i.index}">Remover Item </td>
+                </tr>        
                 
-            </c:if> 
+           
           </c:forEach>
         </table>
          
        
+        <br>
+        <h5> Total = ${total_carrinho}  </h5>
         
-        
-        
-        
+            <br>
+            <br>
         <a href="pagina3.jsp">Continuar Comprando</a> <br>
-        
+         <br>
+         <br>
         
         
         

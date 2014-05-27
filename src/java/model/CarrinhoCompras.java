@@ -27,7 +27,7 @@ public class CarrinhoCompras  implements Serializable{
         public CarrinhoCompras(User user )
         { this.user = user;
           this.itens = new ArrayList();
-        
+          this.itens.add(new Product("chocolate", "gostosuras",5.99f,1,null,"comprado") ); 
         }        
          
     public User getUser() {

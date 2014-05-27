@@ -107,4 +107,26 @@ public class Product implements Serializable {
     }
     
     
+    
+    public Product vendaProduto(int qtd )
+    {    
+           if (this.quantidade >= qtd)
+           {  this.quantidade -= qtd;
+              Product saida = new Product( this.nome ,
+                                           this.categoria,
+                                           this.valor,
+                                            qtd,
+                                            null,
+                                            this.status);   
+             return saida;
+           
+           
+           
+           
+           }    
+           return null;
+    
+    }
+    
+    
 }

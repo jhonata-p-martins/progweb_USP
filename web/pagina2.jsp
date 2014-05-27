@@ -31,7 +31,7 @@
                                     return false;
                                 }
                                 if (form.senha.value!=form.confirma.value){
-					alert("Confirmação de senha deve ser igual a senha");
+					alert("ConfirmaÃ§Ã£o de senha deve ser igual a senha");
 					form.senha.focus();
 					return false;	
 				}
@@ -58,9 +58,9 @@
                             v_obj.value=v_fun(v_obj.value)
                         }
                         function mtel(v){
-                            v=v.replace(/D/g,"");             //Remove tudo o que não é dígito
-                            v=v.replace(/^(d{2})(d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
-                            v=v.replace(/(d)(d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+                            v=v.replace(/D/g,"");             //Remove tudo o que nÃ£o Ã© dÃ­gito
+                            v=v.replace(/^(d{2})(d)/g,"($1) $2"); //Coloca parÃªnteses em volta dos dois primeiros dÃ­gitos
+                            v=v.replace(/(d)(d{4})$/,"$1-$2");    //Coloca hÃ­fen entre o quarto e o quinto dÃ­gitos
                             return v;
                         }
                         function id( el ){
@@ -75,7 +75,7 @@
     </head>
     <body>
         <center><h1>Cadastro</h1></center>
-		<form onsubmit="return valida(this);" action= "principal.html">
+		<form onsubmit="return valida(this);" action= "ServletWeb">
 			<table align="center">
 				<tr>
 					<td>Nome:</td><td><input type="text" name="nome" value="${userAtual.getNome()}"   ></br></td>
@@ -88,7 +88,7 @@
 				<tr>
 					<td>Estado:</td>
                                         <td>
-                                            <select>
+                                            <select name="estado">
                                                 <option value="AD" checked>AC</option>
                                                 <option value="AL">AL</option>
                                                 <option value="AP">AP</option>
@@ -125,13 +125,17 @@
                                 <tr>
 				                                    
                                        <c:if test="${op == 0}">  
-                                          <td>Login:</td><td><input type="text" name="email"></br></td>
+                                          <td>Login:</td><td><input type="text" name="login"></br></td>                                       
                                        </c:if> 
                                        <c:if test="${op == 1}">  
-                                       <td>Login:</td><td><input type="text" name="email"  value="${userAtual.getLogin()}" disabled="true" ></br></td>
+                                            <td>Login:</td><td><input type="text" name="login2"  value="${userAtual.getLogin()}" disabled="true" ></br></td>
+                                            <input type="hidden" name="login" value="${userAtual.getLogin()}"/>
                                        </c:if> 
                                     
 				</tr>
+                                <tr>
+                                    <td></td><td><c:if test="${op == 0 && flag == true}">Login ja existente</c:if></td>
+                                </tr>
                                 
                                 
                                 
@@ -142,11 +146,23 @@
 					<td>Confirmar senha:</td><td><input type="password" name="confirma" value="${userAtual.getSenha()}" ></br></td>
 				</tr>
 				<tr>
+                                    <c:if test="${op == 0}">  
 					<td><td><input type="submit" value="Enviar"><br> 
+                                        <input type="hidden" name="acao" value="cadastrar"/>
+                                    </c:if>
+                                    <c:if test="${op == 1}">  
+					<td><td><input type="submit" value="Atualizar"><br> 
+                                        <input type="hidden" name="acao" value="atualizar"/>
+                                    </c:if>
 </td></td>
 				</tr>
                                 <tr>
-					<td><td><a href="index.jsp">Voltar</a><br> 
+					<c:if test="${op == 0}">  
+                                            <td><td><a href="ServletWeb?acao=voltar&page=1">Voltar</a><br> 
+                                        </c:if>
+                                        <c:if test="${op == 1}">  
+                                            <td><td><a href="ServletWeb?acao=voltar&page=3">Voltar</a><br> 
+                                        </c:if>
 </td></td>
 				</tr>
 			</table>
